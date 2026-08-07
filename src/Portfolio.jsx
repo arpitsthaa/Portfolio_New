@@ -259,12 +259,12 @@ export default function Portfolio() {
       <CursorBlock />
 
       {/* Nav */}
-      <nav className="mono max-w-4xl mx-auto px-6 py-6 flex flex-col sm:flex-row gap-4 justify-between items-center text-sm fade-in relative z-10">
-        <span className="flex items-center gap-2" style={{ color: '#7FE0A8' }}>
-          <span className="w-1.5 h-1.5 rounded-full glow-dot" style={{ background: '#7FE0A8' }} />
+      <nav className="mono w-full max-w-4xl mx-auto px-6 py-6 flex flex-col md:flex-row gap-4 justify-between items-center text-sm fade-in relative z-10">
+        <span className="flex items-center gap-2 w-full justify-center md:justify-start md:w-auto" style={{ color: '#7FE0A8' }}>
+          <span className="w-1.5 h-1.5 rounded-full glow-dot shrink-0" style={{ background: '#7FE0A8' }} />
           ~/arpit
         </span>
-        <div className="flex gap-4 md:gap-6 flex-wrap justify-center items-center" style={{ color: '#8A8B85' }}>
+        <div className="flex gap-4 md:gap-6 flex-wrap justify-center items-center w-full md:w-auto" style={{ color: '#8A8B85' }}>
           <a href="#work" className="link-underline hover:text-[#F2F0E9] transition-colors">work</a>
           <a href="#education" className="link-underline hover:text-[#F2F0E9] transition-colors">education</a>
           <a href="#skills" className="link-underline hover:text-[#F2F0E9] transition-colors">skills</a>
