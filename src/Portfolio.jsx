@@ -203,7 +203,7 @@ export default function Portfolio() {
   return (
     <div
       style={{ background: '#0D0F0E', color: '#F2F0E9' }}
-      className="min-h-screen font-mono selection:bg-[#7FE0A8] selection:text-[#0D0F0E]"
+      className="min-h-screen w-full overflow-x-hidden font-mono selection:bg-[#7FE0A8] selection:text-[#0D0F0E]"
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
