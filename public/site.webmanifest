@@ -1,0 +1,17 @@
+{
+  "name": "Arpit Shrestha",
+  "short_name": "Arpit",
+  "description": "Software engineering student from Nepal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0F0E",
+  "theme_color": "#7FE0A8",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

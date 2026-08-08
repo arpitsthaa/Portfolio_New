@@ -254,6 +254,7 @@ export default function Portfolio() {
           width: 500px; height: 300px; pointer-events: none; z-index: 0;
           background: radial-gradient(ellipse, rgba(127,224,168,0.08), transparent 70%);
         }
+
       `}</style>
       <div className="bg-grid" />
       <CursorBlock />
@@ -312,7 +313,6 @@ export default function Portfolio() {
             >
               get in touch
             </a>
-
           </div>
         </div>
       </section>
