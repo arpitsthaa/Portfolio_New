@@ -10,7 +10,7 @@ const educationList = [
   {
     period: '2025 — present',
     school: 'PCPS College, Lalitpur',
-    detail: 'Bachelor of Honours in Software Engineering',
+    detail: 'Bachelor of Honours in Software Engineering (in partnership with University of Bedfordshire, UK)',
     mapUrl: 'https://www.google.com/maps/search/PCPS+College,+Lalitpur',
   },
   {
@@ -30,24 +30,6 @@ const educationList = [
     school: 'St. Josephs School, Gorkha',
     detail: 'Class 1 to 7',
     mapUrl: 'https://www.google.com/maps/search/St.+Josephs+School,+Gorkha',
-  }
-];
-
-const developerTimelineList = [
-  {
-    year: '2026',
-    title: 'Software Engineering',
-    description: 'Building full-stack and mobile applications.',
-  },
-  {
-    year: '2026',
-    title: 'QueueLess',
-    description: 'Developed queue-management application using Django.',
-  },
-  {
-    year: '2025',
-    title: 'Initial Projects',
-    description: 'Built Desktop applications and started learning foundational software engineering concepts.',
   }
 ];
 
@@ -311,10 +293,7 @@ export default function Portfolio() {
           <div className="flex gap-5 md:gap-8 flex-wrap justify-center items-center w-full md:w-auto" style={{ color: '#A0A29C' }}>
             <a href="#about" className="link-underline hover:text-white transition-colors">about</a>
             <a href="#work" className="link-underline hover:text-white transition-colors">work</a>
-            <a href="#timeline" className="link-underline hover:text-white transition-colors">timeline</a>
-            <a href="https://github.com/arpitsthaa" target="_blank" rel="noopener noreferrer" className="link-underline hover:text-white transition-colors flex items-center gap-1">
-              github <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
+            <a href="#contact" className="link-underline hover:text-white transition-colors">contact</a>
             <span className="hidden md:inline text-xs bg-[#1A1C1A] px-2 py-1 rounded border border-[#2A2C2A]" style={{ color: '#7FE0A8' }}>{clock}</span>
           </div>
         </nav>
@@ -470,35 +449,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Developer Timeline */}
-      <section id="timeline" className="max-w-4xl mx-auto px-6 py-20 relative z-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <Reveal>
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="sans text-3xl font-bold text-white">Developer Timeline</h2>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-[rgba(127,224,168,0.2)] to-transparent"></div>
-          </div>
-        </Reveal>
-        <div className="timeline-container ml-2">
-          {developerTimelineList.map((item, i) => (
-            <Reveal key={i} delay={i * 120}>
-              <div className="timeline-item glass-panel p-6 rounded-xl">
-                <div className="timeline-dot"></div>
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                  <div className="sans font-bold text-lg text-white">
-                    {item.title}
-                  </div>
-                  <div className="mono text-xs font-bold px-3 py-1 rounded-full bg-[rgba(255,255,255,0.05)] text-[#A0A29C] mt-2 md:mt-0 inline-block w-max">
-                    {item.year}
-                  </div>
-                </div>
-                <div className="sans text-[#B8B8B2]">
-                  {item.description}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
 
       {/* Education */}
       <section id="education" className="max-w-4xl mx-auto px-6 py-20 relative z-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
