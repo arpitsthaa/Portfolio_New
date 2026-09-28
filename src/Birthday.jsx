@@ -1,4 +1,5 @@
-const { useEffect, useState } = React;
+import { useEffect, useState } from 'react';
+import './Birthday.css';
 
 /* ✦ EDIT THIS CONFIGURATION BLOCK ✦ */
 const CONFIG = {
@@ -6,16 +7,16 @@ const CONFIG = {
   openingName: "Anisha",
   birthdate: "29·09·26",
   you: "Arpit",
-  music: "Music.mp3",
+  music: "/29march/Music.mp3",
   message: "You make ordinary days feel like something worth remembering. Today, I hope the world gives you back a little of the warmth, laughter, and light you give so effortlessly to everyone around you.",
-  finalPhoto: "mem/WhatsApp Image 2026-09-28 at 10.55.04 AM (1).jpeg",
+  finalPhoto: "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.04 AM (1).jpeg",
   photos: [
-    "mem/WhatsApp Image 2026-09-28 at 10.55.11 AM.jpeg", "mem/WhatsApp Image 2026-09-28 at 10.55.10 AM.jpeg",
-    "mem/WhatsApp Image 2026-09-28 at 10.55.10 AM (1).jpeg", "mem/WhatsApp Image 2026-09-28 at 10.55.10 AM (2).jpeg",
-    "mem/WhatsApp Image 2026-09-28 at 10.55.09 AM.jpeg", "mem/WhatsApp Image 2026-09-28 at 10.55.09 AM (1).jpeg",
-    "mem/WhatsApp Image 2026-09-28 at 10.55.09 AM (2).jpeg", "mem/WhatsApp Image 2026-09-28 at 10.55.08 AM.jpeg",
-    "mem/WhatsApp Image 2026-09-28 at 10.55.08 AM (1).jpeg", "mem/WhatsApp Image 2026-09-28 at 10.55.07 AM.jpeg",
-    "mem/WhatsApp Image 2026-09-28 at 5.33.49 PM.jpeg", "mem/WhatsApp Image 2026-09-28 at 5.33.49 PM (1).jpeg"
+    "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.11 AM.jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.10 AM.jpeg",
+    "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.10 AM (1).jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.10 AM (2).jpeg",
+    "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.09 AM.jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.09 AM (1).jpeg",
+    "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.09 AM (2).jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.08 AM.jpeg",
+    "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.08 AM (1).jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 10.55.07 AM.jpeg",
+    "/29march/mem/WhatsApp Image 2026-09-28 at 5.33.49 PM.jpeg", "/29march/mem/WhatsApp Image 2026-09-28 at 5.33.49 PM (1).jpeg"
   ],
   reasons: [["Your smile", "It makes even the most ordinary day feel lighter."], ["Your kindness", "You make people feel seen, and that is a rare kind of beautiful."], ["The way you understand me", "You hear what I mean, even when I do not quite know how to say it."], ["Your wonderfully weird side", "The version of you that is entirely, unapologetically you."], ["How safe you make everything feel", "With you, home is not a place. It is a feeling."], ["Your laugh", "One of my favorite sounds in the world."], ["The little things you do", "The tiny details are the ones I carry with me."], ["Simply, all of you", "No explanation needed. Just you."]],
   quiz: [
@@ -79,7 +80,7 @@ function Music() {
   };
   return <button className={`music-toggle ${playing ? "is-playing" : ""}`} onClick={toggle} aria-label={ready ? "Enable sound or pause Love Youu" : "Start Love Youu"}><span className="music-bars"><i /><i /><i /><i /></span>{playing ? "Love Youu · on" : ready ? "Love Youu · off" : "Tap for music"}</button>;
 }
-function Shell({ children }) { return <><div className="noise" /><header className="site-header"><a className="wordmark" href="#opening" onClick={(event) => { event.preventDefault(); go("opening"); }}>a little something <span>for you</span></a><Music /></header><main>{children}</main><audio id="birthday-audio" loop preload="auto" src={CONFIG.music} /></>; }
+function Shell({ children }) { return <><div className="noise" /><div className="ambient ambient-one" /><div className="ambient ambient-two" /><header className="site-header"><a className="wordmark" href="#opening" onClick={(event) => { event.preventDefault(); go("opening"); }}>a little something <span>for you</span></a><Music /></header><main className="birthday-main">{children}</main><audio id="birthday-audio" loop preload="auto" src={CONFIG.music} /></>; }
 function Head({ number, eyebrow, title, light = false }) { return <div className={`section-heading reveal in-view ${light ? "heading-light" : ""}`}><div className="heading-number">{number} <span /> {eyebrow}</div><p className="script-line">{title}</p></div>; }
 function Nav({ back, next }) { return <div className="page-nav">{back ? <button className="button button-ghost" onClick={() => go(back)}>← Back</button> : <span />}<button className="button button-primary" onClick={() => go(next)}>Keep going <span>↗</span></button></div>; }
 function Opening() { return <section className="opening panel"><div className="opening-inner reveal in-view"><p className="eyebrow">a small digital love note · {CONFIG.birthdate}</p><p className="script-line">Hey {CONFIG.openingName}<span className="rose">...</span></p><h1>I made<br /><em>something</em> for you.</h1><p className="opening-copy">A little collection of memories, reasons, and all the things I never want you to forget.</p><button className="button button-primary" onClick={() => go("birthday")}>Open your birthday gift <span>↗</span></button><p className="scroll-hint"><span className="line" /> take your time <span className="line" /></p></div><div className="opening-orbit orbit-one" /><div className="opening-orbit orbit-two" /><div className="opening-stamp">made<br /><span>with</span><br />intention</div></section>; }
@@ -128,4 +129,4 @@ function App() {
   const content = page === "opening" ? <Opening /> : page === "birthday" ? <Birthday /> : page === "memories" ? <Memories /> : page === "reasons" ? <Reasons /> : page === "quiz" ? <Quiz /> : page === "letter" ? <Letter /> : <Finale />;
   return <Shell>{content}</Shell>;
 }
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+export default App;

@@ -18,7 +18,9 @@ var BirthdayApp = (() => {
       "mem/WhatsApp Image 2026-09-28 at 10.55.09 AM (2).jpeg",
       "mem/WhatsApp Image 2026-09-28 at 10.55.08 AM.jpeg",
       "mem/WhatsApp Image 2026-09-28 at 10.55.08 AM (1).jpeg",
-      "mem/WhatsApp Image 2026-09-28 at 10.55.07 AM.jpeg"
+      "mem/WhatsApp Image 2026-09-28 at 10.55.07 AM.jpeg",
+      "mem/WhatsApp Image 2026-09-28 at 5.33.49 PM.jpeg",
+      "mem/WhatsApp Image 2026-09-28 at 5.33.49 PM (1).jpeg"
     ],
     reasons: [["Your smile", "It makes even the most ordinary day feel lighter."], ["Your kindness", "You make people feel seen, and that is a rare kind of beautiful."], ["The way you understand me", "You hear what I mean, even when I do not quite know how to say it."], ["Your wonderfully weird side", "The version of you that is entirely, unapologetically you."], ["How safe you make everything feel", "With you, home is not a place. It is a feeling."], ["Your laugh", "One of my favorite sounds in the world."], ["The little things you do", "The tiny details are the ones I carry with me."], ["Simply, all of you", "No explanation needed. Just you."]],
     quiz: [
