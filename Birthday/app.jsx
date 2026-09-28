@@ -39,7 +39,8 @@ I love you so much. 💕😘`
 };
 
 const $ = (selector) => document.querySelector(selector);
-const go = (page) => { window.location.href = `${page}.html`; };
+let navigate = () => {};
+const go = (page) => navigate(page);
 function Music() {
   const [playing, setPlaying] = useState(false);
   const [ready, setReady] = useState(false);
@@ -50,19 +51,24 @@ function Music() {
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     audio.addEventListener("canplay", onReady);
+    audio.addEventListener("loadeddata", onReady);
+    audio.addEventListener("loadedmetadata", onReady);
+    if (audio.readyState >= 2) onReady();
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     audio.muted = true;
     audio.play().catch(() => {});
     return () => {
       audio.removeEventListener("canplay", onReady);
+      audio.removeEventListener("loadeddata", onReady);
+      audio.removeEventListener("loadedmetadata", onReady);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
     };
   }, []);
   const toggle = () => {
     const audio = $("#birthday-audio");
-    if (!ready || !audio) return;
+    if (!audio) return;
     if (playing && !audio.muted) audio.pause();
     else {
       audio.muted = false;
@@ -70,9 +76,9 @@ function Music() {
       audio.play().catch(() => {});
     }
   };
-  return <button className={`music-toggle ${playing ? "is-playing" : ""}`} onClick={toggle} disabled={!ready} aria-label={ready ? "Enable sound or pause Love Youu" : "Loading Love Youu"}><span className="music-bars"><i /><i /><i /><i /></span>{playing ? "Love Youu · on" : ready ? "Love Youu · off" : "Loading"}</button>;
+  return <button className={`music-toggle ${playing ? "is-playing" : ""}`} onClick={toggle} aria-label={ready ? "Enable sound or pause Love Youu" : "Start Love Youu"}><span className="music-bars"><i /><i /><i /><i /></span>{playing ? "Love Youu · on" : ready ? "Love Youu · off" : "Tap for music"}</button>;
 }
-function Shell({ children }) { return <><div className="noise" /><header className="site-header"><a className="wordmark" href="index.html">a little something <span>for you</span></a><Music /></header><main>{children}</main><audio id="birthday-audio" loop preload="auto" src={CONFIG.music} /></>; }
+function Shell({ children }) { return <><div className="noise" /><header className="site-header"><a className="wordmark" href="#opening" onClick={(event) => { event.preventDefault(); go("opening"); }}>a little something <span>for you</span></a><Music /></header><main>{children}</main><audio id="birthday-audio" loop preload="auto" src={CONFIG.music} /></>; }
 function Head({ number, eyebrow, title, light = false }) { return <div className={`section-heading reveal in-view ${light ? "heading-light" : ""}`}><div className="heading-number">{number} <span /> {eyebrow}</div><p className="script-line">{title}</p></div>; }
 function Nav({ back, next }) { return <div className="page-nav">{back ? <button className="button button-ghost" onClick={() => go(back)}>← Back</button> : <span />}<button className="button button-primary" onClick={() => go(next)}>Keep going <span>↗</span></button></div>; }
 function Opening() { return <section className="opening panel"><div className="opening-inner reveal in-view"><p className="eyebrow">a small digital love note · {CONFIG.birthdate}</p><p className="script-line">Hey {CONFIG.openingName}<span className="rose">...</span></p><h1>I made<br /><em>something</em> for you.</h1><p className="opening-copy">A little collection of memories, reasons, and all the things I never want you to forget.</p><button className="button button-primary" onClick={() => go("birthday")}>Open your birthday gift <span>↗</span></button><p className="scroll-hint"><span className="line" /> take your time <span className="line" /></p></div><div className="opening-orbit orbit-one" /><div className="opening-orbit orbit-two" /><div className="opening-stamp">made<br /><span>with</span><br />intention</div></section>; }
@@ -98,6 +104,27 @@ function Reasons() { return <section className="reasons section-light page-secti
 function Quiz() { const [state, setState] = useState({ index: 0, score: 0 }); const complete = state.index >= CONFIG.quiz.length; return <section className="quiz section-blush page-section"><div className="section-inner quiz-inner"><Head number="04" eyebrow="just for fun" title="A tiny test of our little universe" /><h2 className="section-title">One Little <em>Game</em></h2><div className="quiz-card reveal in-view">{complete ? <div className="quiz-result"><strong>{state.score}/{CONFIG.quiz.length} — not bad at all.</strong><p>No matter how many you got right, you're still my favorite person.</p><button className="button button-primary" onClick={() => setState({ index: 0, score: 0 })}>Play again <span>↗</span></button></div> : <><div className="quiz-progress">Question {state.index + 1} of {CONFIG.quiz.length}</div><div className="quiz-question">{CONFIG.quiz[state.index][0]}</div><div className="quiz-options">{CONFIG.quiz[state.index][1].map((choice, i) => <button className="quiz-option" key={choice} onClick={() => setState({ index: state.index + 1, score: state.score + (i === CONFIG.quiz[state.index][2] ? 1 : 0) })}>{choice}</button>)}</div></>}</div><Nav back="reasons" next="letter" /></div></section>; }
 function Letter() { const [open, setOpen] = useState(false); return <section className="letter section-dark page-section"><div className="section-inner letter-inner"><Head number="05" eyebrow="from me to you" title="The part I wanted to say slowly" light /><h2 className="section-title-light">A Letter <em>For You</em></h2><button className={`envelope-wrap ${open ? "open" : ""}`} onClick={() => setOpen(true)}><span className="envelope"><span className="envelope-flap" /><span className="envelope-front" /><span className="envelope-letter"><span>for {CONFIG.name}</span></span><span className="envelope-seal">A</span></span><span className="envelope-cta">click to open <span>↗</span></span></button>{open && <div className="letter-overlay" onClick={() => setOpen(false)}><article className="letter-paper visible" onClick={(event) => event.stopPropagation()}><div className="letter-text">{CONFIG.letter}</div><p className="letter-dismiss">click outside to close</p></article></div>}<Nav back="quiz" next="finale" /></div></section>; }
 function Finale() { const [open, setOpen] = useState(false); return <section className="final panel"><div className="section-inner final-inner reveal in-view"><div className="heading-number">06 <span /> one last thing</div><p className="script-line">Before you go...</p><h2>One Last <em>Thing</em><span className="rose">.</span></h2><p className="final-intro">There is one more little surprise with your name on it.</p>{!open && <button className="button button-primary" onClick={() => setOpen(true)}>Open it <span>↗</span></button>}{open && <div className="surprise-message visible"><p>I didn't buy you something expensive.</p><p>I made you something.</p><p>Because sometimes the things we spend our time creating mean more than the things we simply buy.</p><strong>Happy Birthday, {CONFIG.name} <span>♥</span></strong><img className="special-photo-image" src={CONFIG.finalPhoto} alt="A special memory" /><p className="signature">with all my love,<br /><span>{CONFIG.you}</span></p></div>}</div></section>; }
-const page = document.body.dataset.page;
-const content = page === "opening" ? <Opening /> : page === "birthday" ? <Birthday /> : page === "memories" ? <Memories /> : page === "reasons" ? <Reasons /> : page === "quiz" ? <Quiz /> : page === "letter" ? <Letter /> : <Finale />;
-ReactDOM.createRoot(document.getElementById("root")).render(<Shell>{content}</Shell>);
+const routeFromHash = () => {
+  const route = window.location.hash.slice(1);
+  return ["opening", "birthday", "memories", "reasons", "quiz", "letter", "finale"].includes(route) ? route : document.body.dataset.page || "opening";
+};
+function App() {
+  const [page, setPage] = useState(routeFromHash);
+  useEffect(() => {
+    const onPopState = () => setPage(routeFromHash());
+    navigate = (nextPage) => {
+      if (nextPage === page) return;
+      window.history.pushState({ page: nextPage }, "", `#${nextPage}`);
+      setPage(nextPage);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+      navigate = () => {};
+    };
+  }, [page]);
+  const content = page === "opening" ? <Opening /> : page === "birthday" ? <Birthday /> : page === "memories" ? <Memories /> : page === "reasons" ? <Reasons /> : page === "quiz" ? <Quiz /> : page === "letter" ? <Letter /> : <Finale />;
+  return <Shell>{content}</Shell>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

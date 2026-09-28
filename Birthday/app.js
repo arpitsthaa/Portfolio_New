@@ -42,9 +42,8 @@ Happy 19th birthday budi \u2764\uFE0F
 I love you so much. \u{1F495}\u{1F618}`
   };
   const $ = (selector) => document.querySelector(selector);
-  const go = (page2) => {
-    window.location.href = `${page2}.html`;
-  };
+  let navigate = () => {};
+  const go = (page2) => navigate(page2);
   function Music() {
     const [playing, setPlaying] = useState(false);
     const [ready, setReady] = useState(false);
@@ -55,6 +54,9 @@ I love you so much. \u{1F495}\u{1F618}`
       const onPlay = () => setPlaying(true);
       const onPause = () => setPlaying(false);
       audio.addEventListener("canplay", onReady);
+      audio.addEventListener("loadeddata", onReady);
+      audio.addEventListener("loadedmetadata", onReady);
+      if (audio.readyState >= 2) onReady();
       audio.addEventListener("play", onPlay);
       audio.addEventListener("pause", onPause);
       audio.muted = true;
@@ -62,13 +64,15 @@ I love you so much. \u{1F495}\u{1F618}`
       });
       return () => {
         audio.removeEventListener("canplay", onReady);
+        audio.removeEventListener("loadeddata", onReady);
+        audio.removeEventListener("loadedmetadata", onReady);
         audio.removeEventListener("play", onPlay);
         audio.removeEventListener("pause", onPause);
       };
     }, []);
     const toggle = () => {
       const audio = $("#birthday-audio");
-      if (!ready || !audio) return;
+      if (!audio) return;
       if (playing && !audio.muted) audio.pause();
       else {
         audio.muted = false;
@@ -77,10 +81,10 @@ I love you so much. \u{1F495}\u{1F618}`
         });
       }
     };
-    return /* @__PURE__ */ React.createElement("button", { className: `music-toggle ${playing ? "is-playing" : ""}`, onClick: toggle, disabled: !ready, "aria-label": ready ? "Enable sound or pause Love Youu" : "Loading Love Youu" }, /* @__PURE__ */ React.createElement("span", { className: "music-bars" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null)), playing ? "Love Youu \xB7 on" : ready ? "Love Youu \xB7 off" : "Loading");
+    return /* @__PURE__ */ React.createElement("button", { className: `music-toggle ${playing ? "is-playing" : ""}`, onClick: toggle, "aria-label": ready ? "Enable sound or pause Love Youu" : "Start Love Youu" }, /* @__PURE__ */ React.createElement("span", { className: "music-bars" }, /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null), /* @__PURE__ */ React.createElement("i", null)), playing ? "Love Youu \xB7 on" : ready ? "Love Youu \xB7 off" : "Tap for music");
   }
   function Shell({ children }) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "noise" }), /* @__PURE__ */ React.createElement("header", { className: "site-header" }, /* @__PURE__ */ React.createElement("a", { className: "wordmark", href: "index.html" }, "a little something ", /* @__PURE__ */ React.createElement("span", null, "for you")), /* @__PURE__ */ React.createElement(Music, null)), /* @__PURE__ */ React.createElement("main", null, children), /* @__PURE__ */ React.createElement("audio", { id: "birthday-audio", loop: true, preload: "auto", src: CONFIG.music }));
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "noise" }), /* @__PURE__ */ React.createElement("header", { className: "site-header" }, /* @__PURE__ */ React.createElement("a", { className: "wordmark", href: "#opening", onClick: (event) => { event.preventDefault(); go("opening"); } }, "a little something ", /* @__PURE__ */ React.createElement("span", null, "for you")), /* @__PURE__ */ React.createElement(Music, null)), /* @__PURE__ */ React.createElement("main", null, children), /* @__PURE__ */ React.createElement("audio", { id: "birthday-audio", loop: true, preload: "auto", src: CONFIG.music }));
   }
   function Head({ number, eyebrow, title, light = false }) {
     return /* @__PURE__ */ React.createElement("div", { className: `section-heading reveal in-view ${light ? "heading-light" : ""}` }, /* @__PURE__ */ React.createElement("div", { className: "heading-number" }, number, " ", /* @__PURE__ */ React.createElement("span", null), " ", eyebrow), /* @__PURE__ */ React.createElement("p", { className: "script-line" }, title));
@@ -130,7 +134,28 @@ I love you so much. \u{1F495}\u{1F618}`
     const [open, setOpen] = useState(false);
     return /* @__PURE__ */ React.createElement("section", { className: "final panel" }, /* @__PURE__ */ React.createElement("div", { className: "section-inner final-inner reveal in-view" }, /* @__PURE__ */ React.createElement("div", { className: "heading-number" }, "06 ", /* @__PURE__ */ React.createElement("span", null), " one last thing"), /* @__PURE__ */ React.createElement("p", { className: "script-line" }, "Before you go..."), /* @__PURE__ */ React.createElement("h2", null, "One Last ", /* @__PURE__ */ React.createElement("em", null, "Thing"), /* @__PURE__ */ React.createElement("span", { className: "rose" }, ".")), /* @__PURE__ */ React.createElement("p", { className: "final-intro" }, "There is one more little surprise with your name on it."), !open && /* @__PURE__ */ React.createElement("button", { className: "button button-primary", onClick: () => setOpen(true) }, "Open it ", /* @__PURE__ */ React.createElement("span", null, "\u2197")), open && /* @__PURE__ */ React.createElement("div", { className: "surprise-message visible" }, /* @__PURE__ */ React.createElement("p", null, "I didn't buy you something expensive."), /* @__PURE__ */ React.createElement("p", null, "I made you something."), /* @__PURE__ */ React.createElement("p", null, "Because sometimes the things we spend our time creating mean more than the things we simply buy."), /* @__PURE__ */ React.createElement("strong", null, "Happy Birthday, ", CONFIG.name, " ", /* @__PURE__ */ React.createElement("span", null, "\u2665")), /* @__PURE__ */ React.createElement("img", { className: "special-photo-image", src: CONFIG.finalPhoto, alt: "A special memory" }), /* @__PURE__ */ React.createElement("p", { className: "signature" }, "with all my love,", /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("span", null, CONFIG.you)))));
   }
-  const page = document.body.dataset.page;
-  const content = page === "opening" ? /* @__PURE__ */ React.createElement(Opening, null) : page === "birthday" ? /* @__PURE__ */ React.createElement(Birthday, null) : page === "memories" ? /* @__PURE__ */ React.createElement(Memories, null) : page === "reasons" ? /* @__PURE__ */ React.createElement(Reasons, null) : page === "quiz" ? /* @__PURE__ */ React.createElement(Quiz, null) : page === "letter" ? /* @__PURE__ */ React.createElement(Letter, null) : /* @__PURE__ */ React.createElement(Finale, null);
-  ReactDOM.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React.createElement(Shell, null, content));
+  const routeFromHash = () => {
+    const route = window.location.hash.slice(1);
+    return ["opening", "birthday", "memories", "reasons", "quiz", "letter", "finale"].includes(route) ? route : document.body.dataset.page || "opening";
+  };
+  function App() {
+    const [page, setPage] = useState(routeFromHash);
+    useEffect(() => {
+      const onPopState = () => setPage(routeFromHash());
+      navigate = (nextPage) => {
+        if (nextPage === page) return;
+        window.history.pushState({ page: nextPage }, "", `#${nextPage}`);
+        setPage(nextPage);
+        window.scrollTo(0, 0);
+      };
+      window.addEventListener("popstate", onPopState);
+      return () => {
+        window.removeEventListener("popstate", onPopState);
+        navigate = () => {};
+      };
+    }, [page]);
+    const content = page === "opening" ? /* @__PURE__ */ React.createElement(Opening, null) : page === "birthday" ? /* @__PURE__ */ React.createElement(Birthday, null) : page === "memories" ? /* @__PURE__ */ React.createElement(Memories, null) : page === "reasons" ? /* @__PURE__ */ React.createElement(Reasons, null) : page === "quiz" ? /* @__PURE__ */ React.createElement(Quiz, null) : page === "letter" ? /* @__PURE__ */ React.createElement(Letter, null) : /* @__PURE__ */ React.createElement(Finale, null);
+    return /* @__PURE__ */ React.createElement(Shell, null, content);
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(/* @__PURE__ */ React.createElement(App, null));
 })();
